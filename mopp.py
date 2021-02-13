@@ -211,10 +211,7 @@ class Moppm32:
                     m += '10'
 
             m += '00'                           # EOC
-#            print((""), end=' ')
-
         m = m[0:-2] + '11'                    # final EOW
- #       print("")
 
         m = self.__zfr(m,int(8*math.ceil(len(m)/8.0)),'0')
 
