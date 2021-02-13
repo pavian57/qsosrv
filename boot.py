@@ -1,0 +1,4 @@
+import ConnectWiFi
+
+ConnectWiFi.connect()
+
