@@ -192,7 +192,9 @@ class Moppm32:
         rc = self.__decrypt(mc)
         return rc
 
-            
+    '''
+     part of code from https://github.com/sp9wpn/m32_chat_server.
+    '''        
     def txttomopp(self,txtstr):
         global serial
         global speed
