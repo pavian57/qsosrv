@@ -1,4 +1,4 @@
-import ConnectWiFi
+from wifi_manager import WifiManager
 
-ConnectWiFi.connect()
+WifiManager.setup_network()
 
