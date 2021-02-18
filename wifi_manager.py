@@ -21,15 +21,7 @@ except ImportError:
     pass
 
 # Micropython libraries (install view uPip)
-try:
-    import logging
-    log = logging.getLogger("wifi_manager")
-except ImportError:
-    # Todo: stub logging, this can probably be improved easily, though logging is common to install
-    def fake_log(msg, *args):
-        print("[?] No logger detected. (log dropped)")
-    log = type("", (), {"debug": fake_log, "info": fake_log, "warning": fake_log, "error": fake_log,
-                            "critical": fake_log})()
+
 
 class WifiManager:
     webrepl_triggered = False
@@ -51,7 +43,7 @@ class WifiManager:
             # ESP32 does not currently return
             if (status != network.STAT_GOT_IP) or \
             (cls.wlan().ifconfig()[0] == '0.0.0.0'):  # temporary till #3967
-                log.info("Network not connected: managing")
+                print("Network not connected: managing")
                 # Ignore connecting status for now.. ESP32 is a bit strange
                 # if status != network.STAT_CONNECTING: <- do not care yet
                 cls.setup_network()
@@ -82,9 +74,9 @@ class WifiManager:
                 cls.preferred_networks = config['known_networks']
                 cls.ap_config = config["access_point"]
                 if config.get("schema", 0) != 2:
-                    log.warning("Did not get expected schema [2] in JSON config.")
+                    print("Did not get expected schema [2] in JSON config.")
         except Exception as e:
-            log.error("Failed to load config file, no known networks selected")
+            print("Failed to load config file, no known networks selected")
             cls.preferred_networks = []
             return
 
@@ -115,11 +107,11 @@ class WifiManager:
                     candidates.append(connection_data)
 
         for new_connection in candidates:
-            log.info("Attempting to connect to network {0}...".format(new_connection["ssid"]))
+            print("Attempting to connect to network {0}...".format(new_connection["ssid"]))
             # Micropython 1.9.3+ supports BSSID specification so let's use that
             if cls.connect_to(ssid=new_connection["ssid"], password=new_connection["password"],
                               bssid=new_connection["bssid"]):
-                log.info("Successfully connected {0}".format(new_connection["ssid"]))
+                print("Successfully connected {0}".format(new_connection["ssid"]))
                 cls.webrepl_triggered = new_connection["enables_webrepl"]
                 break  # We are connected so don't try more
 
@@ -129,7 +121,7 @@ class WifiManager:
         should_start_ap = cls.wants_accesspoint()
         cls.accesspoint().active(should_start_ap)
         if should_start_ap:  # Only bother setting the config if it WILL be active
-            log.info("Enabling your access point...")
+            print("Enabling your access point...")
             cls.accesspoint().config(**cls.ap_config["config"])
             cls.webrepl_triggered = cls.ap_config["enables_webrepl"]
         cls.accesspoint().active(cls.wants_accesspoint())  # It may be DEACTIVATED here
