@@ -158,7 +158,7 @@ def main():
                         rst = callsign.get_rst()
                         sendmoppstr(client_address,rst )
                         sendmoppstr(client_address,rst )
-                        sendmoppstr(client_address,rst )
+#                        sendmoppstr(client_address,rst )
                         sendmoppstr(client_address, 'de')
                         sendmoppstr(client_address, qsostate.callsign1)
                         sendmoppstr(client_address, 'k')
