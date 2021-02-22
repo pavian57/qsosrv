@@ -12,7 +12,7 @@ you: Morserino
 
 he: qsosrv
 
-you: cq cq de **yourcallsign** k
+you: cq cq de **yourcallsign** **yourcallsign** k
 
 
 he: **yourcallsign** de **hiscallsign**  **hiscallsign** **hiscallsign** k
