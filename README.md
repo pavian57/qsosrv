@@ -6,9 +6,10 @@ i used VS Code with PyMakr to Upload Code to a esp8266 Wemos mini D1. Adjust you
 
 I will add more features from time to time.
 
-progress so far: <hiscallsign> is a random call sign, <hisrst> random number 1-5 1-n 1-n
+qso follows the rules of: https://www.emdrc.com.au/basics-of-a-cw-qso/
 
 you: Morserino
+
 he: qsosrv
 
 you: cq cq de <yourcallsign> k

@@ -221,36 +221,6 @@ def main():
         
 
 
-                '''
-
-                Chaser calls activator
-                VK3XAS/P de VK3BQ VK3BQ VK3BQ K
-
-                Activator replies with a report for the chaser
-                VK3BQ ur rst 579 579 579 DE VK3XAS/P K
-                if morsecode.strip() != '':
-                        qsostate.tlg =  morsecode.strip()            # k
-                        state = qsostate.state1()
-                        morsecode = ''
-
-                if morsecode.strip() == 'k':
-                '''        
-'''                         
-                        call = callsign.get_call()
-                        sendmoppstr(client_address, call)
-                        sendmoppstr(client_address, call)
-
-                        sendmoppstr(client_address, 'ur')
-                        sendmoppstr(client_address, 'rst')
-                        rst = callsign.get_rst()
-                        sendmoppstr(client_address,rst )
-                        sendmoppstr(client_address,rst )
-                        sendmoppstr(client_address,rst )
-                        sendmoppstr(client_address,'73' )
-                        state = qsostate.state3()
-        
-
-'''
 
 if __name__=="__main__":
     main()
