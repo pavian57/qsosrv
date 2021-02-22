@@ -12,22 +12,22 @@ you: Morserino
 
 he: qsosrv
 
-you: cq cq de ## yourcallsign k
+you: cq cq de **yourcallsign** k
 
 
-he: ## yourcallsign de ## hiscallsign ## hiscallsign ## hiscallsign k
+he: **yourcallsign** de **hiscallsign**  **hiscallsign** **hiscallsign** k
 
 
-you: ## hiscallsign ur rst ## hisrst ## hisrst de ## yourcallsign
+you: **hiscallsign** ur rst **hisrst** **hisrst** de **yourcallsign**
 
 
-he: r r ur rst ## yourst # yourst # yourst de ## hiscallsign k
+he: r r ur rst **yourst** **yourst**  **yourst** de **hiscallsign** k
 
 
-you: rr tu 73 de ## yourcallsign ee
+you: rr tu 73 de **yourcallsign** ee
 
 
-entering ## sk goes back to step 0
+entering **sk** goes back to step 0
 
 
 
