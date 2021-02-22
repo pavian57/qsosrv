@@ -1,4 +1,4 @@
 from wifi_manager import WifiManager
 
-WifiManager.setup_network()
+#WifiManager.setup_network()
 
