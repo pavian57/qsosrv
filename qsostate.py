@@ -16,8 +16,8 @@ rst3 = ''
 def state0():
     global tlg
     global tmp1
-    
-    
+    print('0')
+    print('tmp1: '+tmp1)
     if tmp1 == '':
         tmp1= tlg.strip()
         print ("cq1: "+tmp1)
@@ -26,6 +26,7 @@ def state0():
         if tmp1 == tlg.strip():
             print ("cq2: "+tlg.strip())
             roger.roger()
+            tmp1 = ''
             return state1
         return state0
      
@@ -73,7 +74,7 @@ def state4():
     return state5
 
 def state5():
-    print('ur: '+tlg.string())
+    print('ur: '+tlg.strip())
     # ur
     roger.roger()
     return state6
@@ -81,57 +82,105 @@ def state5():
 def state6():
     global tlg
     if tlg.strip() == 'rst':
-        print ("rst")
+        print ("rst: "+tlg.strip())
         roger.roger()
-        return state6    
-    return state7
+
+        return state7    
+    return state6
 
 
 def state7():
     global tlg
     global tmp1
-    print (tlg)
-    print (tmp1)
+    print ('tmp1: '+tmp1)
     if tmp1 == '':
         tmp1 = tlg.strip()
         print ("rst1: "+tlg.strip())
-        return state6
+        return state7
     else:
         if tmp1 == tlg.strip():
             print ("rst2: "+tlg.strip() )
             roger.roger()
-            return state7
-        return state6
+            return state8
+        return state7
+    return state7
     
-def state7():
+def state8():
     global tlg
     if tlg.strip() == 'de':
         print ("de: "+tlg.strip())
         tmp1 = ''
         roger.roger()
-        return state8
-    return state7
+        return state9
+    return state8
     
 
-def state8():
-    global tlg
-    global tmp1
-    global callsign1
-    global callsign2
-
-    if tmp1 == '':
-        tmp1 = tlg.strip()
-        if tmp1 != callsign1:
-            tmp1 = ''
-            return state8
-        return state8
-
-        if tlg.strip() == callsign1:
-            roger.roger()
-            return state9
-        return state8
-    return state8
-        
 def state9():
-    return state0             
+    global tlg
+    global callsign1
 
+    if tlg.strip() == callsign1:
+        print ("callsign: "+tlg.strip())
+        roger.roger()
+        return state10
+    return state9
+
+def state10():
+    roger.roger()
+    return state11
+
+def state11():
+    if tlg.strip() == 'rr':
+        print ("rr: "+tlg.strip())
+        roger.roger()
+        return state12
+    return state11
+
+def state12():
+    if tlg.strip() == 'tu':
+        print ("tu: "+tlg.strip())
+        roger.roger()
+        return state13
+    return state12
+
+def state13():
+    if tlg.strip() == '73':
+        print ("73: "+tlg.strip())
+        roger.roger()
+        return state14
+    return state13
+
+def state14():
+    if tlg.strip() == 'de':
+        print ("de: "+tlg.strip())
+        roger.roger()
+        return state15
+    return state14
+
+def state15():
+    global tlg
+    global callsign1
+    if tlg.strip() == callsign1:
+        print ("callsign: "+tlg.strip())
+        roger.roger()
+        return state16
+    return state15
+
+
+def state16():
+    global tmp1
+    if tlg.strip() == 'ee':
+        print ("ee: "+tlg.strip())
+        roger.roger()
+        tmp1 = ''
+        return state0
+    return state16
+
+'''RR TU 73 de VK3XAS/P EE '''
+def state20():   #<sk>
+    global tmp1
+    roger.roger()
+    roger.roger()
+    tmp1 = ''
+    return state0
+    

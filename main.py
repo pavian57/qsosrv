@@ -14,6 +14,10 @@ from  mopp import Moppm32
 
 from callsign import CallGenerator
 
+from wifi_manager import WifiManager
+
+WifiManager.setup_network()
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 SERVER_IP = "0.0.0.0"
@@ -34,6 +38,7 @@ print("Python {} on {}\n".format(sys.version, sys.platform))
 translator = Moppm32()
 callsign = CallGenerator()
 state = qsostate.state0
+rufzeichen = ''
 
 print('ready')
 
@@ -70,9 +75,13 @@ def main():
      #   print ('From: ', end ='')
      #   print( client_address)
      #   print('Text: ', end ='')
-     #   print(morsecode)
-        print(state)
-        
+        print(morsecode)
+#        print(state)
+
+        if morsecode.strip() == '<sk>':
+                state = qsostate.state20()
+
+
         if state == qsostate.state0:
                 print(state)
                 
@@ -104,15 +113,13 @@ def main():
                 print(state)
                 
                 if morsecode.strip() == 'k':
-#                        qsostate.tlg =  morsecode.strip()            # k
-#                        state = qsostate.state3()
-                        morsecode = ''
+                        print ("k: "+morsecode.strip())
                         call = callsign.get_call()
-                        qsostate.ourcallsign = call 
+                        qsostate.ourcallsign = call
         #                Chaser calls activator
         #                VK3XAS/P de VK3BQ VK3BQ VK3BQ K
                         sendmoppstr(client_address, qsostate.callsign1)
-                        qsostate.ourcallsign = call 
+                        qsostate.ourcallsign = call
                         sendmoppstr(client_address, 'de')        
                         sendmoppstr(client_address, call)
                         sendmoppstr(client_address, call)
@@ -123,6 +130,7 @@ def main():
         elif state == qsostate.state4:
                 print(state)
                 if qsostate.ourcallsign == morsecode.strip():
+                        qsostate.tlg =  morsecode.strip()  
                         state = qsostate.state4()
 
                 
@@ -130,6 +138,7 @@ def main():
         elif state == qsostate.state5:    # ur
                 print(state)
                 if morsecode.strip() == 'ur':   
+                        qsostate.tlg =  morsecode.strip()  
                         state = qsostate.state5()
 
         elif state == qsostate.state6:   # rst             
@@ -137,20 +146,27 @@ def main():
                 qsostate.tlg =  morsecode.strip()
                 state = qsostate.state6()
                 
-        elif state == qsostate.state7:   # rst             
+        elif state == qsostate.state7:   # 599             
+                print(state)
+                if len(morsecode) > 2: 
+                        qsostate.tlg =  morsecode.strip()
+                        state = qsostate.state7()
+        
+        elif state == qsostate.state8:   # de
                 print(state)
                 qsostate.tlg =  morsecode.strip()
-                state = qsostate.state6()
+                state = qsostate.state8()
         
-        elif state == qsostate.state8:   # hiscakk
+        elif state == qsostate.state9:   # callsign
                 print(state)
                 qsostate.tlg =  morsecode.strip()
-                state = qsostate.state6()
-        
-        elif state == qsostate.state9:   # k
+                state = qsostate.state9()
+
+        elif state == qsostate.state10:   # k
                 print(state)
                 if morsecode.strip() == 'k':
-                        state = qsostate.state6()
+                        print ("k: "+morsecode.strip())
+#                        state = qsostate.state9()
                         sendmoppstr(client_address, 'r')                        
                         sendmoppstr(client_address, 'r')                        
                         sendmoppstr(client_address, 'ur')
@@ -160,8 +176,50 @@ def main():
                         sendmoppstr(client_address,rst )
 #                        sendmoppstr(client_address,rst )
                         sendmoppstr(client_address, 'de')
-                        sendmoppstr(client_address, qsostate.callsign1)
+                        sendmoppstr(client_address, qsostate.ourcallsign)
                         sendmoppstr(client_address, 'k')
+                        state = qsostate.state10()
+
+        elif state == qsostate.state11:   # 
+                print(state)
+                if morsecode.strip() == 'rr':   
+                        qsostate.tlg =  morsecode.strip()  
+                        state = qsostate.state11()
+
+        
+        elif state == qsostate.state12:   # 
+                print(state)
+                if morsecode.strip() == 'tu':   
+                        qsostate.tlg =  morsecode.strip()  
+                        state = qsostate.state12()
+
+
+        elif state == qsostate.state13:   # 
+                print(state)
+                if morsecode.strip() == '73':   
+                        qsostate.tlg =  morsecode.strip()  
+                        state = qsostate.state13()
+
+        elif state == qsostate.state14:   # 
+                print(state)
+                if morsecode.strip() == 'de':   
+                        qsostate.tlg =  morsecode.strip()  
+                        state = qsostate.state14()
+
+        elif state == qsostate.state15:   # 
+                print(state)
+               
+                qsostate.tlg =  morsecode.strip()  
+                state = qsostate.state15()
+
+        elif state == qsostate.state16:   # 
+                print(state)
+                if morsecode.strip() == 'ee':   
+                        qsostate.tlg =  morsecode.strip()  
+                        state = qsostate.state16()
+        
+        
+
 
                 '''
 
