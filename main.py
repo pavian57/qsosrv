@@ -86,8 +86,9 @@ def main():
                         i = int(morsecode)
                         if i >= 3 or i >=8:
                                 callsign.set_call_length(i)
-                        
-
+                                roger.blink(i)
+                                        
+                   
 
 
         if state == qsostate.state0:
@@ -110,11 +111,10 @@ def main():
         elif state == qsostate.state2:
                 print(state)
                 
-                if len(morsecode) > 2: 
-                        if len(morsecode) > 2 and  morsecode.strip() != '':
-                                qsostate.tlg =  morsecode.strip()            # 1. call
-                                state = qsostate.state2()
-                                morsecode = ''
+                if len(morsecode) > 3: 
+                        qsostate.tlg =  morsecode.strip()            # 1. call
+                        state = qsostate.state2()
+                        morsecode = ''
                                 
 
         elif state == qsostate.state3:
@@ -156,7 +156,7 @@ def main():
                 
         elif state == qsostate.state7:   # 599             
                 print(state)
-                if len(morsecode) > 2: 
+                if len(morsecode) == 3: 
                         qsostate.tlg =  morsecode.strip()
                         state = qsostate.state7()
         
