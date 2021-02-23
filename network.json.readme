@@ -1,0 +1,21 @@
+{
+	"schema": 2,
+	"known_networks": [
+		{
+			"ssid": "xxxxx",
+			"password": "xxxx",
+			"enables_webrepl": false,
+			"start_policy": "fallback"
+		}
+	],
+	"access_point": {
+		"config": {
+			"essid": "qsowifi",
+			"channel": 11,
+			"hidden": false,
+			"password": "12qsosrv"
+		},
+		"enables_webrepl": false,
+		"start_policy": "fallback"
+	}
+}
