@@ -80,6 +80,14 @@ def main():
 
         if morsecode.strip() == '<sk>':
                 state = qsostate.state20()
+        
+        if state == qsostate.state0:
+                if (morsecode.isdigit()):
+                        i = int(morsecode)
+                        if i >= 3 or i >=8:
+                                callsign.set_call_length(i)
+                        
+
 
 
         if state == qsostate.state0:
