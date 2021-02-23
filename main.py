@@ -215,7 +215,10 @@ def main():
         elif state == qsostate.state16:   # 
                 print(state)
                 if morsecode.strip() == 'ee':   
-                        qsostate.tlg =  morsecode.strip()  
+                        print ("ee: "+morsecode.strip())
+                        roger.roger()
+                        qsostate.tmp1 = ''  
+                        sendmoppstr(client_address, '73')
                         state = qsostate.state16()
         
         

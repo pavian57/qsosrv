@@ -168,13 +168,8 @@ def state15():
 
 
 def state16():
-    global tmp1
-    if tlg.strip() == 'ee':
-        print ("ee: "+tlg.strip())
-        roger.roger()
-        tmp1 = ''
-        return state0
-    return state16
+    return state0
+    
 
 '''RR TU 73 de VK3XAS/P EE '''
 def state20():   #<sk>
