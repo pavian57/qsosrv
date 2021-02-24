@@ -3,14 +3,12 @@ from random import *
 class CallGenerator():
 
     
-#    chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-    chars = ['a','c','d','e','g','h','i','j','k','l','m','n','o','q','r','s','t','u','v','x','y']
-    #0-25  // 0-20
+    chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    #0-25 
     numbers = ['1','2','3','4','5','6','7','8','9','n']
     #0-9
-#    allchars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']
-    allchars = ['a','c','d','e','g','h','i','j','k','l','m','n','o','q','r','s','t','u','v','x','y','0','1','2','3','4','5','6','7','8','9']
-    #0-35  // 0-30
+    allchars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']
+    #0-35
 
    
 
@@ -49,9 +47,9 @@ class CallGenerator():
 
     def get_call(self):
         cs = ''
-        cs = self.chars[self.__randrange(0,20) ]
+        cs = self.chars[self.__randrange(0,25) ]
         for i in range(self.call_length-1):
-            cs += self.allchars [self.__randrange(0,30) ]
+            cs += self.allchars [self.__randrange(0,35) ]
         return cs 
         
 
