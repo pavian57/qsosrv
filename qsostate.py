@@ -1,4 +1,6 @@
-import roger
+import sys
+if  sys.platform == 'esp8266':
+    import roger
 
 tlg = ''
 tmp1 = ''
@@ -25,7 +27,8 @@ def state0():
     else:
         if tmp1 == tlg.strip():
             print ("cq2: "+tlg.strip())
-            roger.roger()
+            if  sys.platform == 'esp8266':
+                roger.roger()
             tmp1 = ''
             return state1
         return state0
@@ -35,7 +38,8 @@ def state1():
     global tlg
     if tlg.strip() == 'de':
         print ("de: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state2
     return state1    
 
@@ -53,14 +57,16 @@ def state2():
         if callsign1 == tlg.strip():
             callsign2 = tlg.strip() 
             print ("callsign2: "+callsign2)
-            roger.roger()
+            if  sys.platform == 'esp8266':
+                roger.roger()
             return state3
         return state2
     
   
 def state3():
    # chaser VK3XAS/P de VK3BQ VK3BQ VK3BQ K
-    roger.roger()
+    if  sys.platform == 'esp8266':
+        roger.roger()
     return state4
     
 
@@ -70,20 +76,23 @@ VK3BQ ur rst 579 579 579 DE VK3XAS/P K '''
 def state4(): 
     print ("ourcallsign: "+tlg.strip())
     #our callsign okay
-    roger.roger()
+    if  sys.platform == 'esp8266':
+        roger.roger()
     return state5
 
 def state5():
     print('ur: '+tlg.strip())
     # ur
-    roger.roger()
+    if  sys.platform == 'esp8266':
+        roger.roger()
     return state6
 
 def state6():
     global tlg
     if tlg.strip() == 'rst':
         print ("rst: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':        
+            roger.roger()
 
         return state7    
     return state6
@@ -100,7 +109,8 @@ def state7():
     else:
         if tmp1 == tlg.strip():
             print ("rst2: "+tlg.strip() )
-            roger.roger()
+            if  sys.platform == 'esp8266':
+                roger.roger()
             return state8
         return state7
     return state7
@@ -110,7 +120,8 @@ def state8():
     if tlg.strip() == 'de':
         print ("de: "+tlg.strip())
         tmp1 = ''
-        roger.roger()
+        if  sys.platform == 'esp8266':        
+            roger.roger()
         return state9
     return state8
     
@@ -121,39 +132,45 @@ def state9():
 
     if tlg.strip() == callsign1:
         print ("callsign: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state10
     return state9
 
 def state10():
-    roger.roger()
+    if  sys.platform == 'esp8266':
+        roger.roger()
     return state11
 
 def state11():
     if tlg.strip() == 'rr':
         print ("rr: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state12
     return state11
 
 def state12():
     if tlg.strip() == 'tu':
         print ("tu: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state13
     return state12
 
 def state13():
     if tlg.strip() == '73':
         print ("73: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state14
     return state13
 
 def state14():
     if tlg.strip() == 'de':
         print ("de: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state15
     return state14
 
@@ -162,7 +179,8 @@ def state15():
     global callsign1
     if tlg.strip() == callsign1:
         print ("callsign: "+tlg.strip())
-        roger.roger()
+        if  sys.platform == 'esp8266':
+            roger.roger()
         return state16
     return state15
 
@@ -174,8 +192,9 @@ def state16():
 '''RR TU 73 de VK3XAS/P EE '''
 def state20():   #<sk>
     global tmp1
-    roger.roger()
-    roger.roger()
+    if  sys.platform == 'esp8266':
+        roger.roger()
+        roger.roger()
     tmp1 = ''
     return state0
     

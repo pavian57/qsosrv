@@ -5,18 +5,23 @@
 # Author: ruedi kneubuehler hb9fvk@gmx.net
 
 import sys
+import time
 import socket
 import binascii
 import qsostate
-import roger
+
 
 from  mopp import Moppm32
 
 from callsign import CallGenerator
 
-from wifi_manager import WifiManager
+if  sys.platform == 'esp8266':
 
-WifiManager.setup_network()
+    import roger
+
+    from wifi_manager import WifiManager
+
+    WifiManager.setup_network()
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -57,6 +62,7 @@ def sendmoppstr(adr, txtstr):
                         if split[i] == '1':
                                 value +=1 #++; //add 1 if needed
                 frame.append(value)  #
+        time.sleep(0.2)
         sock.sendto(frame,adr)
 
 
@@ -64,7 +70,8 @@ def sendmoppstr(adr, txtstr):
 def main():
 
     state = qsostate.state0
-    roger.roger()
+    if  sys.platform == 'esp8266':
+        roger.roger()
     rc = 0
     while True:
         payload, client_address = sock.recvfrom(64)
@@ -86,7 +93,8 @@ def main():
                         i = int(morsecode)
                         if i >= 3 or i >=8:
                                 callsign.set_call_length(i)
-                                roger.blink(i)
+                                if  sys.platform == 'esp8266':
+                                    roger.blink(i)
                                         
                    
 
@@ -111,6 +119,7 @@ def main():
         elif state == qsostate.state2:
                 print(state)
                 
+                print (len(morsecode.strip()))
                 if len(morsecode) > 3: 
                         qsostate.tlg =  morsecode.strip()            # 1. call
                         state = qsostate.state2()
@@ -224,7 +233,8 @@ def main():
                 print(state)
                 if morsecode.strip() == 'ee':   
                         print ("ee: "+morsecode.strip())
-                        roger.roger()
+                        if  sys.platform == 'esp8266':
+                            roger.roger()
                         qsostate.tmp1 = ''  
                         sendmoppstr(client_address, '73')
                         state = qsostate.state16()
