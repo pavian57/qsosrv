@@ -12,13 +12,14 @@ you: Morserino
 
 he: qsosrv
 
-you: cq cq de **yourcallsign** **yourcallsign** k
+you: cq **sota** cq **sota** cq **sota** de **yourcallsign** **yourcallsign** **yourcallsign** k
 
+**sota** ist optional
 
 he: **yourcallsign** de **hiscallsign**  **hiscallsign** **hiscallsign** k
 
 
-you: **hiscallsign** ur rst **hisrst** **hisrst** de **yourcallsign**
+you: **hiscallsign** ur rst **hisrst** **hisrst** **hisrst** de **yourcallsign**
 
 
 he: r r ur rst **yourst** **yourst**  **yourst** de **hiscallsign** k
