@@ -1,1 +1,4 @@
 networks.json
+*~
+__pycache__/
+

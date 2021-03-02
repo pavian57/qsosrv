@@ -57,16 +57,11 @@ class Qsostate:
             print(":sota")
             self.sota = 1
             self.sotalist.append(tlg)
-        print(self.cqlist)
-        print(self.sotalist)
-        print(self.sota)
         if self.sota == 1:
             if len(self.cqlist) >= 3 and len(self.sotalist) >= 3:
-                print('1')
                 return State.DE
             return State.CQ
         elif len(self.cqlist) >= 1:
-            print('2')
             return State.DE
         return State.CQ
     
@@ -181,14 +176,14 @@ class Qsostate:
     def byeee(self,tlg):
         if tlg == 'ee':
             print(":ee")
-            self.cqlist = []
-            self.callsignlist = []
-            self.tmplist = []
-            urcallsign = ''
             return State.END
         return State.BYEEE
     
     def end(self, tlg):
+        self.cqlist = []
+        self.callsignlist = []
+        self.tmplist = []
+        urcallsign = ''    
         return State.END
         
 
