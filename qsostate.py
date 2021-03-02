@@ -1,200 +1,202 @@
-import sys
-if  sys.platform == 'esp8266':
-    import roger
+from enum import Enum
 
-tlg = ''
-tmp1 = ''
-tmp2 = ''
-tmp3 = ''
-callsign1 = ''
-callsign2 = ''
-ourcallsign = ''
-r1 = ''
-r2 = ''
-rst1 = ''
-rst2 = ''
-rst3 = ''
-
-def state0():
-    global tlg
-    global tmp1
-    print('0')
-    print('tmp1: '+tmp1)
-    if tmp1 == '':
-        tmp1= tlg.strip()
-        print ("cq1: "+tmp1)
-        return state0
-    else:
-        if tmp1 == tlg.strip():
-            print ("cq2: "+tlg.strip())
-            if  sys.platform == 'esp8266':
-                roger.roger()
-            tmp1 = ''
-            return state1
-        return state0
-     
-
-def state1():
-    global tlg
-    if tlg.strip() == 'de':
-        print ("de: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state2
-    return state1    
-
-def state2():
-    global tlg
-    global callsign1
-    global callsign2
+class State(Enum):
+    CQ = 1
+    DE = 5
+    CALLSIGN = 7
+    K	= 9
+    CHASE = 11
+    OURCALLSIGN	= 13
     
-    # delay and decision path to simulate some application logic
-    if callsign1 == '':
-        callsign1 = tlg.strip()
-        print ("callsign1: "+callsign1)
-        return state2
-    else:
-        if callsign1 == tlg.strip():
-            callsign2 = tlg.strip() 
-            print ("callsign2: "+callsign2)
-            if  sys.platform == 'esp8266':
-                roger.roger()
-            return state3
-        return state2
+    UR	= 15
+    RST	= 17
+    REPORT = 19
+    REPORTDE = 21
+    REPORTCALL = 23
+    REPORTK = 25
+    REPORTCHASE = 27
     
+    BYERR = 29
+    BYETU = 31
+    BYE73 = 33
+    BYEDE = 35
+    BYECALL = 37
+    BYEEE = 39
+    END = 41
+    
+    SK = 100
+    
+    
+    
+    
+    
+    
+
+
+class Qsostate:
+
+    cqlist = []
+    sotalist = []
+    callsignlist = []
+    tmplist = []
+    urcallsign = ''
+    lencall = 3
+    sota = 0
+
+    
+    def __init__(self, functions):
+        self.functions = functions
+    
+# define some action functions
+    def cq(self,tlg):
+
+        if tlg == 'cq':
+            print(":cq")
+            self.cqlist.append(tlg)
+        if tlg == 'sota':
+            print(":sota")
+            self.sota = 1
+            self.sotalist.append(tlg)
+        if self.sota == 1:
+            if len(self.cqlist) >= 3 and len(self.sotalist) >= 3:
+                return State.DE
+            return State.CQ
+        elif len(self.cqlist) >= 1:
+            return State.DE
+        return State.CQ
+    
+
+    def de(self,tlg):
+        if tlg == 'de':
+            print(":de")
+            # return the next state
+            return State.CALLSIGN
+        return State.DE
+
+    def callsign(self,tlg):
+        if len(tlg) >= self.lencall:
+            self.callsignlist.append(tlg)
+            print(':'+str(self.callsignlist[0]))
+        if len(self.callsignlist) >= 1:
+                # return the next state
+            return State.K
+        return State.CALLSIGN
+       
+    def k(self,tlg):
+        if tlg == 'k':
+            print(":k")
+            return State.CHASE
+        return State.K
+    
+    def ourcallsign(self,tlg):
+        if tlg == self.urcallsign:
+            print(':'+Str(self.urcallsign))
+            return State.UR
+        return State.OURCALLSIGN
+    
+    def ur(self,tlg):
+        if tlg == 'ur':
+            print(':ur')
+            return State.RST
+        return State.UR
+
+
+    def rst(self,tlg):
+        if tlg == 'rst':
+            print(':rst')
+            return State.REPORT
+        return State.RST
+        
+    def report(self,tlg):
+        if len(tlg) >= 3:
+            self.tmplist.append(tlg)
+            print(':'+tlg)
+        if len(self.tmplist) >= 1:
+                # return the next state
+            return State.REPORTDE
+        return State.REPORT
+    
+    def reportde(self,tlg):
+        if tlg == 'de':
+            print(":de")
+            # return the next state
+            return State.REPORTCALL
+        return State.REPORTDE
+
+
+    def reportcall(self,tlg):
+        if tlg == self.callsignlist[0]:
+            print(':'+str(self.callsignlist[0]))
+            return State.REPORTK
+        return State.REPORTCALL        
+    
+
+    def reportk(self,tlg):
+        if tlg == 'k':
+            print(":k")
+            return State.REPORTCHASE
+        return State.REPORTK
+        
+    def byerr(self,tlg):
+        if tlg == 'rr':
+            print(":rr")
+            # return the next state
+            return State.BYETU
+        return State.BYEUR
+        
+    def byetu(self,tlg):
+        if tlg == 'tu':
+            print(":tu")
+            # return the next state
+            return State.BYE73
+        return State.BYETU
+    
+    
+    def bye73(self,tlg):
+        if tlg == '73':
+            print(":73")
+            # return the next state
+            return State.BYEDE
+        return State.BYE73
+        
+    
+    def byede(self,tlg):
+        if tlg == 'de':
+            print(":de")
+            # return the next state
+            return State.BYECALL
+        return State.BYEDE
+        
+    def byecall(self,tlg):
+        if tlg == self.callsignlist[0]:
+            print(':'+str(self.callsignlist[0]))
+            return State.BYEEE
+        return State.BYECALL
+        
+    def byeee(self,tlg):
+        if tlg == 'ee':
+            print(":ee")
+            return State.END
+        return State.BYEEE
+    
+    def end(self, tlg):
+        self.cqlist = []
+        self.callsignlist = []
+        self.tmplist = []
+        urcallsign = ''    
+        return State.END
+        
+
+
+
   
-def state3():
-   # chaser VK3XAS/P de VK3BQ VK3BQ VK3BQ K
-    if  sys.platform == 'esp8266':
-        roger.roger()
-    return state4
+    
     
 
-'''Activator replies with a report for the chaser
-VK3BQ ur rst 579 579 579 DE VK3XAS/P K '''
 
-def state4(): 
-    print ("ourcallsign: "+tlg.strip())
-    #our callsign okay
-    if  sys.platform == 'esp8266':
-        roger.roger()
-    return state5
-
-def state5():
-    print('ur: '+tlg.strip())
-    # ur
-    if  sys.platform == 'esp8266':
-        roger.roger()
-    return state6
-
-def state6():
-    global tlg
-    if tlg.strip() == 'rst':
-        print ("rst: "+tlg.strip())
-        if  sys.platform == 'esp8266':        
-            roger.roger()
-
-        return state7    
-    return state6
-
-
-def state7():
-    global tlg
-    global tmp1
-    print ('tmp1: '+tmp1)
-    if tmp1 == '':
-        tmp1 = tlg.strip()
-        print ("rst1: "+tlg.strip())
-        return state7
-    else:
-        if tmp1 == tlg.strip():
-            print ("rst2: "+tlg.strip() )
-            if  sys.platform == 'esp8266':
-                roger.roger()
-            return state8
-        return state7
-    return state7
-    
-def state8():
-    global tlg
-    if tlg.strip() == 'de':
-        print ("de: "+tlg.strip())
-        tmp1 = ''
-        if  sys.platform == 'esp8266':        
-            roger.roger()
-        return state9
-    return state8
-    
-
-def state9():
-    global tlg
-    global callsign1
-
-    if tlg.strip() == callsign1:
-        print ("callsign: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state10
-    return state9
-
-def state10():
-    if  sys.platform == 'esp8266':
-        roger.roger()
-    return state11
-
-def state11():
-    if tlg.strip() == 'rr':
-        print ("rr: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state12
-    return state11
-
-def state12():
-    if tlg.strip() == 'tu':
-        print ("tu: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state13
-    return state12
-
-def state13():
-    if tlg.strip() == '73':
-        print ("73: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state14
-    return state13
-
-def state14():
-    if tlg.strip() == 'de':
-        print ("de: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state15
-    return state14
-
-def state15():
-    global tlg
-    global callsign1
-    if tlg.strip() == callsign1:
-        print ("callsign: "+tlg.strip())
-        if  sys.platform == 'esp8266':
-            roger.roger()
-        return state16
-    return state15
-
-
-def state16():
-    return state0
-    
-
-'''RR TU 73 de VK3XAS/P EE '''
-def state20():   #<sk>
-    global tmp1
-    if  sys.platform == 'esp8266':
-        roger.roger()
-        roger.roger()
-    tmp1 = ''
-    return state0
-    
+    def run_func(self, func_key, *args, **kwargs):
+        func_name = self.functions.get(func_key)
+        if func_name and hasattr(self, func_name):
+            return getattr(self, func_name)(*args, **kwargs)
+        else:
+            return None
