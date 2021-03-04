@@ -46,6 +46,23 @@ class Qsostate:
     
     def __init__(self, functions):
         self.functions = functions
+
+    def is_number(self,n):
+        try:
+            float(n)   # Type-casting the string to `float`.
+                   # If string is not a valid `float`,
+                   # it'll raise `ValueError` exception
+        except ValueError:
+            return False
+        return True
+
+
+    def check_rst(self,rst):            
+        if self.is_number(rst[0]):            
+            if self.is_number(rst[1]) or str(rst[1]) == 'n':
+                if self.is_number(rst[2]) or str(rst[2]) == 'n':                  
+                    return True
+        return False
     
 # define some action functions
     def cq(self,tlg):
@@ -113,11 +130,12 @@ class Qsostate:
         
     def report(self,tlg):
         if len(tlg) >= 3:
-            self.tmplist.append(tlg)
-            print(':'+tlg)
-        if len(self.tmplist) >= self.numberofcq:
+            if self.check_rst(tlg): 
+                self.tmplist.append(tlg)
+                print(':'+tlg)
+                if len(self.tmplist) >= self.numberofcq:
                 # return the next state
-            return State.REPORTDE
+                    return State.REPORTDE            
         return State.REPORT
     
     def reportde(self,tlg):
