@@ -132,7 +132,7 @@ def main():
             state = State.END
         
         state = qso.run_func(state,tlg)
-        log(state)
+        log('state: '+str(state))
         
         if state == State.CHASE:
                 
