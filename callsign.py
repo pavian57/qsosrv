@@ -10,7 +10,7 @@ class CallGenerator():
     allchars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']
     #0-35
 
-   
+    
 
     def __randrange(self,start, stop=None):
         global bits
@@ -32,7 +32,7 @@ class CallGenerator():
 
     """a simple and easy to use password generator"""
     def __init__(self):
-        self.call_length = 3
+        self.call_length = 4
 
     def set_call_length(self,size):
         self.call_length = size
