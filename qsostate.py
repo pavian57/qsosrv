@@ -92,7 +92,7 @@ class Qsostate:
     
     def ourcallsign(self,tlg):
         if tlg == self.urcallsign:
-            print(':'+Str(self.urcallsign))
+            print(':'+str(self.urcallsign))
             return State.UR
         return State.OURCALLSIGN
     
