@@ -1,37 +1,36 @@
-from enum import Enum
 
-class State(Enum):
-    CQ = 1
-    DE = 5
-    CALLSIGN = 7
-    K	= 9
-    CHASE = 11
-    OURCALLSIGN	= 13
+class State:
+        CQ = 1
+        DE = 5
+        CALLSIGN = 7
+        K	= 9
+        CHASE = 11
+        OURCALLSIGN	= 13
     
-    UR	= 15
-    RST	= 17
-    REPORT = 19
-    REPORTDE = 21
-    REPORTCALL = 23
-    REPORTK = 25
-    REPORTCHASE = 27
+        UR	= 15
+        RST	= 17
+        REPORT = 19
+        REPORTDE = 21
+        REPORTCALL = 23
+        REPORTK = 25
+        REPORTCHASE = 27
     
-    BYERR = 29
-    BYETU = 31
-    BYE73 = 33
-    BYEDE = 35
-    BYECALL = 37
-    BYEEE = 39
-    END = 41
+        BYERR = 29
+        BYETU = 31
+        BYE73 = 33
+        BYEDE = 35
+        BYECALL = 37
+        BYEEE = 39
+        END = 41
     
-    SK = 100
-    
-    
-    
-    
-    
+        SK = 100
+
     
 
+    
+    
+    
+    
 
 class Qsostate:
 
@@ -58,10 +57,10 @@ class Qsostate:
             self.sota = 1
             self.sotalist.append(tlg)
         if self.sota == 1:
-            if len(self.cqlist) >= 3 and len(self.sotalist) >= 3:
+            if len(self.cqlist) >= self.lencall and len(self.sotalist) >= self.lencall:
                 return State.DE
             return State.CQ
-        elif len(self.cqlist) >= 1:
+        elif len(self.cqlist) >= self.lencall:
             return State.DE
         return State.CQ
     
@@ -75,9 +74,12 @@ class Qsostate:
 
     def callsign(self,tlg):
         if len(tlg) >= self.lencall:
-            self.callsignlist.append(tlg)
-            print(':'+str(self.callsignlist[0]))
-        if len(self.callsignlist) >= 1:
+            if len(self.callsignlist) == 0:
+                self.callsignlist.append(tlg)
+            elif tlg == self.callsignlist[0]:
+                print(':'+tlg)
+                self.callsignlist.append(tlg)
+        if len(self.callsignlist) >= self.lencall:
                 # return the next state
             return State.K
         return State.CALLSIGN
