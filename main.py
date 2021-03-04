@@ -35,7 +35,7 @@ UDP_PORT = 7373
 CLIENT_TIMEOUT = 300
 MAX_CLIENTS = 10
 KEEPALIVE = 10
-DEBUG = True
+DEBUG = False
 
 # map the states to action functions          
 # map the states to action functions          
