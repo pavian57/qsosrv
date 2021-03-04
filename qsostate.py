@@ -39,7 +39,8 @@ class Qsostate:
     callsignlist = []
     tmplist = []
     urcallsign = ''
-    lencall = 3
+    lencall = 5
+    numberofcq = 3
     sota = 0
 
     
@@ -57,10 +58,10 @@ class Qsostate:
             self.sota = 1
             self.sotalist.append(tlg)
         if self.sota == 1:
-            if len(self.cqlist) >= self.lencall and len(self.sotalist) >= self.lencall:
+            if len(self.cqlist) >= self.numberofcq and len(self.sotalist) >= self.numberofcq:
                 return State.DE
             return State.CQ
-        elif len(self.cqlist) >= self.lencall:
+        elif len(self.cqlist) >= self.numberofcq:
             return State.DE
         return State.CQ
     
@@ -75,11 +76,12 @@ class Qsostate:
     def callsign(self,tlg):
         if len(tlg) >= self.lencall:
             if len(self.callsignlist) == 0:
+                print(':'+tlg)
                 self.callsignlist.append(tlg)
             elif tlg == self.callsignlist[0]:
                 print(':'+tlg)
                 self.callsignlist.append(tlg)
-        if len(self.callsignlist) >= self.lencall:
+        if len(self.callsignlist) >= self.numberofcq:
                 # return the next state
             return State.K
         return State.CALLSIGN
@@ -113,7 +115,7 @@ class Qsostate:
         if len(tlg) >= 3:
             self.tmplist.append(tlg)
             print(':'+tlg)
-        if len(self.tmplist) >= 1:
+        if len(self.tmplist) >= self.numberofcq:
                 # return the next state
             return State.REPORTDE
         return State.REPORT
