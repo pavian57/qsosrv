@@ -89,6 +89,7 @@ def log(s):
 easier code int(value,2) does not work with micropython
 '''
 def sendmoppstr(adr, txtstr):
+        log(txtstr)
         sendstr = translator.txttomopp(txtstr)
         splits = [sendstr[x:x + 8] for x in range(0, len(sendstr), 8)]
         frame = bytearray()
@@ -108,7 +109,7 @@ def sendmoppstr(adr, txtstr):
 def main():
 
     if  sys.platform == 'esp8266':
-        roger.roger()
+        roger.roger()       
     rc = 0
 
     state = State.CQ
@@ -168,6 +169,8 @@ def main():
 # Chaser may then send 73            
         if state == State.END:
             sendmoppstr(client_address, '73')
+            if  sys.platform == 'esp8266': roger.roger()
+            if  sys.platform == 'esp8266': roger.roger()
             state = State.CQ
         
 

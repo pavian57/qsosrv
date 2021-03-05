@@ -1,3 +1,6 @@
+import sys
+if  sys.platform == 'esp8266':  
+    import roger
 
 class State:
         CQ = 1
@@ -76,9 +79,11 @@ class Qsostate:
             self.sotalist.append(tlg)
         if self.sota == 1:
             if len(self.cqlist) >= self.numberofcq and len(self.sotalist) >= self.numberofcq:
+                if  sys.platform == 'esp8266': roger.roger()
                 return State.DE
             return State.CQ
         elif len(self.cqlist) >= self.numberofcq:
+            if  sys.platform == 'esp8266': roger.roger()
             return State.DE
         return State.CQ
     
@@ -87,6 +92,7 @@ class Qsostate:
         if tlg == 'de':
             print(":de")
             # return the next state
+            if  sys.platform == 'esp8266': roger.roger()
             return State.CALLSIGN
         return State.DE
 
@@ -100,24 +106,28 @@ class Qsostate:
                 self.callsignlist.append(tlg)
         if len(self.callsignlist) >= self.numberofcq:
                 # return the next state
+            if  sys.platform == 'esp8266': roger.roger()
             return State.K
         return State.CALLSIGN
        
     def k(self,tlg):
         if tlg == 'k':
             print(":k")
+            if  sys.platform == 'esp8266': roger.roger()
             return State.CHASE
         return State.K
     
     def ourcallsign(self,tlg):
         if tlg == self.urcallsign:
             print(':'+str(self.urcallsign))
+            if  sys.platform == 'esp8266': roger.roger()
             return State.UR
         return State.OURCALLSIGN
     
     def ur(self,tlg):
         if tlg == 'ur':
             print(':ur')
+            if  sys.platform == 'esp8266': roger.roger()
             return State.RST
         return State.UR
 
@@ -125,6 +135,7 @@ class Qsostate:
     def rst(self,tlg):
         if tlg == 'rst':
             print(':rst')
+            if  sys.platform == 'esp8266': roger.roger()
             return State.REPORT
         return State.RST
         
@@ -135,6 +146,7 @@ class Qsostate:
                 print(':'+tlg)
                 if len(self.tmplist) >= self.numberofcq:
                 # return the next state
+                    if  sys.platform == 'esp8266': roger.roger()
                     return State.REPORTDE            
         return State.REPORT
     
@@ -142,6 +154,7 @@ class Qsostate:
         if tlg == 'de':
             print(":de")
             # return the next state
+            if  sys.platform == 'esp8266': roger.roger()
             return State.REPORTCALL
         return State.REPORTDE
 
@@ -149,6 +162,7 @@ class Qsostate:
     def reportcall(self,tlg):
         if tlg == self.callsignlist[0]:
             print(':'+str(self.callsignlist[0]))
+            if  sys.platform == 'esp8266': roger.roger()
             return State.REPORTK
         return State.REPORTCALL        
     
@@ -156,12 +170,14 @@ class Qsostate:
     def reportk(self,tlg):
         if tlg == 'k':
             print(":k")
+            if  sys.platform == 'esp8266': roger.roger()
             return State.REPORTCHASE
         return State.REPORTK
         
     def byerr(self,tlg):
         if tlg == 'rr':
             print(":rr")
+            if  sys.platform == 'esp8266': roger.roger()
             # return the next state
             return State.BYETU
         return State.BYEUR
@@ -169,6 +185,7 @@ class Qsostate:
     def byetu(self,tlg):
         if tlg == 'tu':
             print(":tu")
+            if  sys.platform == 'esp8266': roger.roger()
             # return the next state
             return State.BYE73
         return State.BYETU
@@ -178,6 +195,7 @@ class Qsostate:
         if tlg == '73':
             print(":73")
             # return the next state
+            if  sys.platform == 'esp8266': roger.roger()
             return State.BYEDE
         return State.BYE73
         
@@ -185,6 +203,7 @@ class Qsostate:
     def byede(self,tlg):
         if tlg == 'de':
             print(":de")
+            if  sys.platform == 'esp8266': roger.roger()
             # return the next state
             return State.BYECALL
         return State.BYEDE
@@ -192,12 +211,14 @@ class Qsostate:
     def byecall(self,tlg):
         if tlg == self.callsignlist[0]:
             print(':'+str(self.callsignlist[0]))
+            if  sys.platform == 'esp8266': roger.roger()
             return State.BYEEE
         return State.BYECALL
         
     def byeee(self,tlg):
         if tlg == 'ee':
             print(":ee")
+            if  sys.platform == 'esp8266': roger.roger()
             return State.END
         return State.BYEEE
     
@@ -205,7 +226,7 @@ class Qsostate:
         self.cqlist = []
         self.callsignlist = []
         self.tmplist = []
-        urcallsign = ''    
+        urcallsign = ''            
         return State.END
         
 
