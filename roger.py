@@ -8,16 +8,16 @@ led = machine.Pin(LED_PIN, machine.Pin.OUT)
 def dot():
     led.on()
     led.off()
-    time.sleep(0.3)
+    time.sleep(0.2)
     led.on()
-    time.sleep(0.3)
+    time.sleep(0.2)
 
 def dash():
     led.on()
     led.off()
-    time.sleep(0.9)
+    time.sleep(0.6)
     led.on()
-    time.sleep(0.3)
+    time.sleep(0.2)
 
 
 
