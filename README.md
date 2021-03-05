@@ -2,9 +2,11 @@
 
 This is a small program in Micropython on esp8266 to run a kind of qso server for Morserino-32. https://github.com/oe1wkl/Morserino-32
 
-i used VS Code with PyMakr to Upload Code to a esp8266 Wemos mini D1. Adjust your Wifi Settings. Start your Morserino in WifiTrx and follow the procedure below. The qsosrv sends back a random callsign, lenght=3 at the moment, you may change by your own, or send a number **i >= 3 or i >=8** before sending **cq**. 
+i used VS Code with PyMakr to Upload Code to a esp8266 Wemos mini D1. Adjust your Wifi Settings. Start your Morserino in WifiTrx and follow the procedure below. The qsosrv sends back a random callsign, lenght=5 at the moment, you may change by your own, or send a number **i >= 3 or i >=8** before sending **cq**. 
 
 I will add more features from time to time.
+
+Next step will be adding a small oled display.
 
 qso follows the rules of: https://www.emdrc.com.au/basics-of-a-cw-qso/
 
