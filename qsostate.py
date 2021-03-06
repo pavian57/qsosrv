@@ -180,7 +180,7 @@ class Qsostate:
             if  sys.platform == 'esp8266': roger.roger()
             # return the next state
             return State.BYETU
-        return State.BYEUR
+        return State.BYERR
         
     def byetu(self,tlg):
         if tlg == 'tu':
