@@ -65,7 +65,7 @@ python main.py
 ```
 
 ### ESP8266 / MicroPython
-I used VS Code with PyMakr to Upload Code to a esp8266 Wemos mini D1. After successfully uploading the code to the ESP8266, simply reset the device.
+I used VS Code with PyMakr to Upload Code to a esp8266 Wemos mini D1. After successfully uploading the code to the ESP8266, simply reset the device. If it does not connect automatically, doublecheck if you have added **"wch.cn"** to your Pymakr's Globalsettings Section **"autoconnect_comport_manufacturers":**. 
 
 ## Set-up
 
