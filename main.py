@@ -131,6 +131,14 @@ def main():
         if morsecode.strip() == '<sk>':
             print(':<sk> bye')
             state = State.END
+
+        if state == State.CQ:
+            if (morsecode.isdigit()):
+                i = int(morsecode)
+                if i >= 3 or i >=8:
+                    callsign.set_call_length(i)
+                    if  sys.platform == 'esp8266':
+                        roger.blink(i)
         
         state = qso.run_func(state,tlg)
         log('state: '+str(state))
