@@ -14,7 +14,7 @@ you: cq **sota** cq **sota** cq **sota** de **yourcallsign** **yourcallsign** **
 ```
 **sota** ist optional
 ```
-he: **yourcallsign** de **hiscallsign**  **hiscallsign** **hiscallsign** k
+he: **yourcallsign** de **hiscallsign**  **hiscallsign** **hiscallsign**pse k
 you: **hiscallsign** ur rst **hisrst** **hisrst** **hisrst** de **yourcallsign**
 he: r r ur rst **yourst** **yourst**  **yourst** de **hiscallsign** k
 you: rr tu 73 de **yourcallsign** ee
