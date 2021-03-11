@@ -112,6 +112,7 @@ class WifiManager:
             if cls.connect_to(ssid=new_connection["ssid"], password=new_connection["password"],
                               bssid=new_connection["bssid"]):
                 print("Successfully connected {0}".format(new_connection["ssid"]))
+                print(cls.wlan().ifconfig()[0])
                 cls.webrepl_triggered = new_connection["enables_webrepl"]
                 break  # We are connected so don't try more
 
