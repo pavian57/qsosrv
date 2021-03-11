@@ -7,6 +7,7 @@ class State:
         DE = 5
         CALLSIGN = 7
         K	= 9
+        PSE = 10
         CHASE = 11
         OURCALLSIGN	= 13
     
@@ -107,8 +108,16 @@ class Qsostate:
         if len(self.callsignlist) >= self.numberofcq:
                 # return the next state
             if  sys.platform == 'esp8266': roger.roger()
-            return State.K
+            return State.PSE
         return State.CALLSIGN
+
+    def pse(self,tlg):
+        if tlg == 'pse':
+            print(":pse")
+            # return the next state
+            if  sys.platform == 'esp8266': roger.roger()
+            return State.K
+        return State.PSE
        
     def k(self,tlg):
         if tlg == 'k':

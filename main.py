@@ -45,6 +45,7 @@ action = {
     State.CQ : 'cq',
     State.DE : 'de',
     State.CALLSIGN : 'callsign',
+    State.PSE : 'pse',
     State.K : 'k',
     State.CHASE: 'k',
     State.OURCALLSIGN : 'ourcallsign',
