@@ -73,9 +73,11 @@ class Qsostate:
 
         if tlg == 'cq':
             print(":cq")
+            if  sys.platform == 'esp8266': roger.dot()
             self.cqlist.append(tlg)
         if tlg == 'sota':
             print(":sota")
+            if  sys.platform == 'esp8266': roger.dot()
             self.sota = 1
             self.sotalist.append(tlg)
         if self.sota == 1:
@@ -101,6 +103,7 @@ class Qsostate:
         if len(tlg) >= self.lencall:
             if len(self.callsignlist) == 0:
                 print(':'+tlg)
+                if  sys.platform == 'esp8266': roger.dot()
                 self.callsignlist.append(tlg)
             elif tlg == self.callsignlist[0]:
                 print(':'+tlg)
@@ -153,6 +156,7 @@ class Qsostate:
             if self.check_rst(tlg): 
                 self.tmplist.append(tlg)
                 print(':'+tlg)
+                if  sys.platform == 'esp8266': roger.dot()
                 if len(self.tmplist) >= self.numberofcq:
                 # return the next state
                     if  sys.platform == 'esp8266': roger.roger()
