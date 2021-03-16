@@ -28,6 +28,9 @@ if  sys.platform == 'esp8266':
 
     WifiManager.setup_network()
 
+    import utelnetserver
+    utelnetserver.start()
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 SERVER_IP = "0.0.0.0"
