@@ -60,6 +60,15 @@ class Qsostate:
             return False
         return True
 
+    #https://stackoverflow.com/questions/5319922/python-check-if-word-is-in-a-string
+    def smart_find(self,haystack, needle):
+        if haystack.startswith(needle):
+            return True
+        if haystack.endswith(needle):
+            return True
+        if haystack.find(needle) != -1:
+            return True
+        return False    
 
     def check_rst(self,rst):            
         if self.is_number(rst[0]):            
@@ -71,12 +80,12 @@ class Qsostate:
 # define some action functions
     def cq(self,tlg):
 
-        if tlg == 'cq':
+        if self.smart_find(tlg,'cq'):
             print(":cq")
             self.cqlist.append(tlg)
             if len(self.cqlist) < self.numberofcq:
                     if  sys.platform == 'esp8266': roger.dot() 
-        if tlg == 'sota':
+        if self.smart_find(tlg,'sota'):
             print(":sota")
             self.sota = 1
             self.sotalist.append(tlg)
@@ -94,7 +103,7 @@ class Qsostate:
     
 
     def de(self,tlg):
-        if tlg == 'de':
+        if self.smart_find(tlg,'de'):
             print(":de")
             # return the next state
             if  sys.platform == 'esp8266': roger.roger()
@@ -119,7 +128,7 @@ class Qsostate:
         return State.CALLSIGN
 
     def pse(self,tlg):
-        if tlg == 'pse':
+        if self.smart_find(tlg,'pse'):
             print(":pse")
             # return the next state
             if  sys.platform == 'esp8266': roger.roger()
@@ -141,7 +150,7 @@ class Qsostate:
         return State.OURCALLSIGN
     
     def ur(self,tlg):
-        if tlg == 'ur':
+        if self.smart_find(tlg,'ur'):
             print(':ur')
             if  sys.platform == 'esp8266': roger.roger()
             return State.RST
@@ -149,7 +158,7 @@ class Qsostate:
 
 
     def rst(self,tlg):
-        if tlg == 'rst':
+        if self.smart_find(tlg,'rst'):
             print(':rst')
             if  sys.platform == 'esp8266': roger.roger()
             return State.REPORT
@@ -169,7 +178,7 @@ class Qsostate:
         return State.REPORT
     
     def reportde(self,tlg):
-        if tlg == 'de':
+        if self.smart_find(tlg,'de'):
             print(":de")
             # return the next state
             if  sys.platform == 'esp8266': roger.roger()
@@ -193,7 +202,7 @@ class Qsostate:
         return State.REPORTK
         
     def byerr(self,tlg):
-        if tlg == 'rr':
+        if self.smart_find(tlg,'rr'):
             print(":rr")
             if  sys.platform == 'esp8266': roger.roger()
             # return the next state
@@ -201,7 +210,7 @@ class Qsostate:
         return State.BYERR
         
     def byetu(self,tlg):
-        if tlg == 'tu':
+        if self.smart_find(tlg,'tu'):
             print(":tu")
             if  sys.platform == 'esp8266': roger.roger()
             # return the next state
@@ -210,7 +219,7 @@ class Qsostate:
     
     
     def bye73(self,tlg):
-        if tlg == '73':
+        if self.smart_find(tlg,'73'):
             print(":73")
             # return the next state
             if  sys.platform == 'esp8266': roger.roger()
@@ -219,7 +228,7 @@ class Qsostate:
         
     
     def byede(self,tlg):
-        if tlg == 'de':
+        if self.smart_find(tlg,'de'):
             print(":de")
             if  sys.platform == 'esp8266': roger.roger()
             # return the next state
@@ -234,7 +243,7 @@ class Qsostate:
         return State.BYECALL
         
     def byeee(self,tlg):
-        if tlg == 'ee':
+        if self.smart_find(tlg,'ee'):
             print(":ee")
             if  sys.platform == 'esp8266': roger.roger()
             return State.END
